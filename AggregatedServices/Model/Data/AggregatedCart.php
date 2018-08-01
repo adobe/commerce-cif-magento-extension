@@ -16,13 +16,13 @@ declare(strict_types=1);
 
 namespace Magento\AggregatedServices\Model\Data;
 
-use Magento\AggregatedServices\Api\Data\AggregatedGuestCartInterface;
+use Magento\AggregatedServices\Api\Data\AggregatedCartInterface;
 use Magento\Framework\Api\AbstractExtensibleObject;
 
 /**
  * @inheritdoc
  */
-class AggregatedGuestCart extends AbstractExtensibleObject implements AggregatedGuestCartInterface
+class AggregatedCart extends AbstractExtensibleObject implements AggregatedCartInterface
 {
     public function getCartDetails()
     {
@@ -92,7 +92,7 @@ class AggregatedGuestCart extends AbstractExtensibleObject implements Aggregated
     }
 
     public function setExtensionAttributes(
-        \Magento\AggregatedServices\Api\Data\AggregatedGuestCartExtensionInterface $extensionAttributes
+        \Magento\AggregatedServices\Api\Data\AggregatedCartExtensionInterface $extensionAttributes
     ) {
         return $this->_setExtensionAttributes($extensionAttributes);
     }

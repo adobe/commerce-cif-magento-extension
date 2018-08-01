@@ -17,16 +17,22 @@ declare(strict_types=1);
 namespace Magento\AggregatedServices\Api\Service;
 
 /**
- * Interface for getting aggregated guest cart data in one call.
+ * Interface for getting aggregated cart data in one call.
  */
-interface GetGuestCartInterface
+interface GetCartInterface
 {
     /**
-     * Get aggregated guest cart data in one call.
+     * Get aggregated cart data in one call.
      *
-     * @param string $cartId The cart ID hash.
+     * @see \Magento\Quote\Api\CartRepositoryInterface::get
+     * @see \Magento\Quote\Api\PaymentMethodManagementInterface::get
+     * @see \Magento\Quote\Api\CartTotalRepositoryInterface::get
+     * @see \Magento\Catalog\Api\ProductRepositoryInterface::getList
+     * @see \Magento\Catalog\Api\ProductAttributeRepositoryInterface::getList
+     *
+     * @param string $cartId The cart ID.
      * @param \Magento\Framework\Api\SearchCriteriaInterface|null $productAttributesSearchCriteria
-     * @return \Magento\AggregatedServices\Api\Data\AggregatedCartInterface Aggregated guest cart data.
+     * @return \Magento\AggregatedServices\Api\Data\AggregatedCartInterface Aggregated cart data.
      * @throws \Magento\Framework\Exception\NoSuchEntityException The specified cart does not exist.
      */
     public function get(

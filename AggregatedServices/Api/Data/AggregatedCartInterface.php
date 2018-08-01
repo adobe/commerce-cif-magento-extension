@@ -17,9 +17,9 @@ namespace Magento\AggregatedServices\Api\Data;
 use Magento\Framework\Api\ExtensibleDataInterface;
 
 /**
- * Aggregated guest cart data.
+ * Aggregated cart data.
  */
-interface AggregatedGuestCartInterface extends ExtensibleDataInterface
+interface AggregatedCartInterface extends ExtensibleDataInterface
 {
     /**
      * @return \Magento\Quote\Api\Data\CartInterface
@@ -92,17 +92,17 @@ interface AggregatedGuestCartInterface extends ExtensibleDataInterface
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \Magento\AggregatedServices\Api\Data\AggregatedGuestCartExtensionInterface|null
+     * @return \Magento\AggregatedServices\Api\Data\AggregatedCartExtensionInterface|null
      */
     public function getExtensionAttributes();
 
     /**
      * Set an extension attributes object.
      *
-     * @param \Magento\AggregatedServices\Api\Data\AggregatedGuestCartExtensionInterface $extensionAttributes
+     * @param \Magento\AggregatedServices\Api\Data\AggregatedCartExtensionInterface $extensionAttributes
      * @return void
      */
     public function setExtensionAttributes(
-        \Magento\AggregatedServices\Api\Data\AggregatedGuestCartExtensionInterface $extensionAttributes
+        \Magento\AggregatedServices\Api\Data\AggregatedCartExtensionInterface $extensionAttributes
     );
 }
