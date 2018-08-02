@@ -18,12 +18,12 @@
     <preference for="Magento\AggregatedServices\Api\Service\GetGuestCartInterface" type="Magento\AggregatedServices\Model\Service\GetGuestCart"/>
     <preference for="Magento\AggregatedServices\Api\Data\AggregatedGuestCartInterface" type="Magento\AggregatedServices\Model\Data\AggregatedGuestCart"/>
     <preference for="Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterface" type="Magento\AggregatedServices\Model\Data\ConfigurableParentRelation"/>
-    <!--<type name="Magento\WebapiSecurity\Model\Plugin\AnonymousResourceSecurity">-->
-        <!--<arguments>-->
-            <!--<argument name="resources" xsi:type="array">-->
-                <!--<item name="/V1/guest-aggregated-carts/:cartId::GET" xsi:type="string"/>-->
-                <!--<item name="/V1/products/attributes::GET" xsi:type="string"/>-->
-            <!--</argument>-->
-        <!--</arguments>-->
-    <!--</type>-->
+    <type name="Magento\WebapiSecurity\Model\Plugin\AnonymousResourceSecurity">
+        <arguments>
+            <argument name="resources" xsi:type="array">
+                <item name="/V1/guest-aggregated-carts/:cartId::GET" xsi:type="string"/>
+                <item name="/V1/products/attributes::GET" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </type>
 </config>
