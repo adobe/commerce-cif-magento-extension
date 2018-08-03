@@ -19,4 +19,4 @@ All submissions should come in the form of pull requests and need to be reviewed
 Please follow the [pull request template](PULL_REQUEST_TEMPLATE.md) when submitting a pull request!
 ## Issues
 
-Please follow the [issue template](ISSUE_TEMPLATE.md) to open new [issues](https://github.com/adobe/commerce-cif-magento-extensions/issues) and join the conversations to provide feedback.
+Please follow the [issue template](ISSUE_TEMPLATE.md) to open new [issues](https://github.com/adobe/commerce-cif-magento-extension/issues) and join the conversations to provide feedback.
