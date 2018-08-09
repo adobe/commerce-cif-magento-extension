@@ -38,7 +38,6 @@ class GetGuestCartTest extends \Magento\TestFramework\TestCase\WebapiAbstract
 
     /**
      * @magentoApiDataFixture Magento/Checkout/_files/quote_with_product_shipping_and_payment.php
-     * @magentoConfigFixture default_store webapi/webapisecurity/allow_insecure 1
      */
     public function testGet()
     {
@@ -98,7 +97,7 @@ class GetGuestCartTest extends \Magento\TestFramework\TestCase\WebapiAbstract
             ->create();
 
         $expectedCartDetailsObject = $this->objectManager->create(
-            \Magento\AggregatedServices\Api\Data\AggregatedGuestCartInterface::class,
+            \Magento\AggregatedServices\Api\Data\AggregatedCartInterface::class,
             [
                 'data' => [
                     'cart_details' => $cart,
