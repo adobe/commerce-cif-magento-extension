@@ -20,8 +20,17 @@
     <route url="/V1/guest-aggregated-carts/:cartId" method="GET">
         <service class="Magento\AggregatedServices\Api\Service\GetGuestCartInterface" method="get"/>
         <resources>
-            <resource ref="Magento_Catalog::products" />
-            <resource ref="Magento_Catalog::attributes_attributes" />
+            <resource ref="anonymous" />
         </resources>
+    </route>
+
+    <route url="/V1/customer-aggregated-carts/mine" method="GET">
+        <service class="Magento\AggregatedServices\Api\Service\GetCartInterface" method="get"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
     </route>
 </routes>
