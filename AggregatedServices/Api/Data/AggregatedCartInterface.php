@@ -66,17 +66,15 @@ interface AggregatedCartInterface extends ExtensibleDataInterface
     public function setProducts(\Magento\Framework\Api\SearchResultsInterface $products);
     
     /**
-     * @return \Magento\Catalog\Api\Data\ProductAttributeSearchResultsInterface|null
+     * @return \Magento\AggregatedServices\Api\Data\AttributeInformationInterface[]|null
      */
     public function getProductAttributes();
 
     /**
-     * @param \Magento\Framework\Api\SearchResultsInterface $productAttributes
+     * @param \Magento\AggregatedServices\Api\Data\AttributeInformationInterface[] $productAttributes
      * @return $this
      */
-    public function setProductAttributes(
-        \Magento\Framework\Api\SearchResultsInterface $productAttributes
-    );
+    public function setProductAttributes($productAttributes);
 
     /**
      * @return \Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterface[]|null
