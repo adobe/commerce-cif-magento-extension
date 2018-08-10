@@ -46,7 +46,7 @@ interface AttributeInformationInterface
     public function getLabel();
 
     /**
-     * Set values
+     * Set options
      *
      * @param \Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterface[] $options
      * @return $this
@@ -54,7 +54,7 @@ interface AttributeInformationInterface
     public function setOptions($options = null);
 
     /**
-     * Get values
+     * Get options
      *
      * @return \Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterface[]|null
      */

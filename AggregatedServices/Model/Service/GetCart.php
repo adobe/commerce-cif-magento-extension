@@ -23,6 +23,7 @@ use Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterface;
 use Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterfaceFactory;
 use Magento\AggregatedServices\Api\Data\AttributeInformationInterfaceFactory;
 use Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterfaceFactory;
+use Magento\AggregatedServices\Api\Data\AttributeInformationInterface;
 
 /**
  * @inheritdoc
@@ -184,35 +185,47 @@ class GetCart implements GetCartInterface
 
         // Fetch attributes metadata
         if ($productAttributesSearchCriteria) {
-            $productAttributes = $this->productAttributeRepository->getList($productAttributesSearchCriteria);
-            $attributes = null;
-            foreach ($productAttributes->getItems() as $productAttribute) {
-                $options = null;
-                if (is_array($productAttribute->getOptions())) {
-                    foreach ($productAttribute->getOptions() as $option) {
-                        $options[] = $this->attributeOptionInformationFactory->create(
-                            [
-                                'data' => [
-                                    'value' => $option->getValue(),
-                                    'label' => $option->getLabel(),
-                                ]
-                            ]
-                        );
-                    }
-                }
-                $attributes[] = $this->attributeInformationFactory->create(
-                    [
-                        'data' => [
-                            'code' => $productAttribute->getAttributeCode(),
-                            'label' => $productAttribute->getFrontendLabel(),
-                            'options' => $options,
-                        ]
-                    ]
-                );
-            }
-            $aggregatedCart->setProductAttributes($attributes);
+            $aggregatedCart->setProductAttributes($this->getAttributesInformation($productAttributesSearchCriteria));
         }
 
         return $aggregatedCart;
+    }
+
+    /**
+     * Get attributes information
+     *
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $productAttributesSearchCriteria
+     * @return AttributeInformationInterface[] $attributes
+     */
+    private function getAttributesInformation(
+        \Magento\Framework\Api\SearchCriteriaInterface $productAttributesSearchCriteria
+    ) {
+        $productAttributes = $this->productAttributeRepository->getList($productAttributesSearchCriteria);
+        $attributes = null;
+        foreach ($productAttributes->getItems() as $productAttribute) {
+            $options = null;
+            if (is_array($productAttribute->getOptions())) {
+                foreach ($productAttribute->getOptions() as $option) {
+                    $options[] = $this->attributeOptionInformationFactory->create(
+                        [
+                            'data' => [
+                                'value' => $option->getValue(),
+                                'label' => $option->getLabel(),
+                            ]
+                        ]
+                    );
+                }
+            }
+            $attributes[] = $this->attributeInformationFactory->create(
+                [
+                    'data' => [
+                        'code' => $productAttribute->getAttributeCode(),
+                        'label' => $productAttribute->getFrontendLabel(),
+                        'options' => $options,
+                    ]
+                ]
+            );
+        }
+        return $attributes;
     }
 }
