@@ -49,14 +49,17 @@ class GetGuestCartTest extends \Magento\TestFramework\TestCase\WebapiAbstract
 
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . '/' . $cartId,
+                'resourcePath' => self::RESOURCE_PATH
+                    . '/'
+                    . $cartId
+                    . '?productAttributesSearchCriteria[filter_groups][0][filters][0][field]=attribute_code'
+                    . '&productAttributesSearchCriteria[filter_groups][0][filters][0][value]=test_configurable',
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ],
         ];
 
         $actualCartDetails = $this->_webApiCall($serviceInfo);
         $expectedCartDetails = $this->getExpectedCartDetails($cartId);
-
         $this->assertEquals($expectedCartDetails, $actualCartDetails);
     }
 
@@ -105,12 +108,49 @@ class GetGuestCartTest extends \Magento\TestFramework\TestCase\WebapiAbstract
                     'totals' => $guestCartTotalRepository->get($cartId),
                     'products' => $productRepository->getList($productsSearchCriteria),
                     'configurable_parent_relations' => $this->getConfigurableParentRelations($cart),
+                    'product_attributes' => $this->getProductAttributesMetadata(),
                 ]
 
             ]
         );
 
         return $hydrator->extract($expectedCartDetailsObject);
+    }
+
+    /**
+     * Get product attributes metadata
+     *
+     * @return array|null
+     */
+    private function getProductAttributesMetadata()
+    {
+        $productAttributeRepository = $this->objectManager->create(
+            \Magento\Catalog\Api\ProductAttributeRepositoryInterface::class
+        );
+        $searchCriteria = $this->objectManager->create(
+            \Magento\Framework\Api\SearchCriteriaBuilder::class
+        );
+        $productAttributes = $productAttributeRepository->getList(
+            $searchCriteria->addFilter('attribute_code', ['test_configurable'], 'in')->create()
+        );
+        $attributes = null;
+        foreach ($productAttributes->getItems() as $productAttribute) {
+            $options = null;
+            if (is_array($productAttribute->getOptions())) {
+                foreach ($productAttribute->getOptions() as $option) {
+                    $options[] = [
+                        'value' => $option->getValue(),
+                        'label' => $option->getLabel(),
+                    ];
+                }
+            }
+            $attributes[] = [
+                'code' => $productAttribute->getAttributeCode(),
+                'label' => $productAttribute->getFrontendLabel(),
+                'options' => $options,
+            ];
+        }
+        return $attributes;
     }
 
     /**

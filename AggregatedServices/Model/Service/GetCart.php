@@ -21,6 +21,9 @@ use Magento\Catalog\Model\ProductFactory;
 use Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable as ConfigurableProductTypeResource;
 use Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterface;
 use Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterfaceFactory;
+use Magento\AggregatedServices\Api\Data\AttributeInformationInterfaceFactory;
+use Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterfaceFactory;
+use Magento\AggregatedServices\Api\Data\AttributeInformationInterface;
 
 /**
  * @inheritdoc
@@ -77,6 +80,16 @@ class GetCart implements GetCartInterface
     private $configurableParentRelationInterfaceFactory;
 
     /**
+     * @var AttributeOptionInformationInterfaceFactory
+     */
+    private $attributeInformationFactory;
+
+    /**
+     * @var AttributeOptionInformationInterfaceFactory
+     */
+    private $attributeOptionInformationFactory;
+
+    /**
      * @param \Magento\Quote\Api\CartRepositoryInterface $cartRepository
      * @param \Magento\Quote\Api\PaymentMethodManagementInterface $paymentMethodManagement
      * @param \Magento\Quote\Api\CartTotalRepositoryInterface $cartTotalRepository
@@ -87,6 +100,8 @@ class GetCart implements GetCartInterface
      * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
      * @param ConfigurableProductTypeResource $configurableProductTypeResource
      * @param ProductFactory $productFactory
+     * @param AttributeInformationInterfaceFactory $attributeInformationFactory
+     * @param AttributeOptionInformationInterfaceFactory $attributeOptionInformationFactory
      */
     public function __construct(
         \Magento\Quote\Api\CartRepositoryInterface $cartRepository,
@@ -98,7 +113,9 @@ class GetCart implements GetCartInterface
         ConfigurableParentRelationInterfaceFactory $configurableParentRelationInterfaceFactory,
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         ConfigurableProductTypeResource $configurableProductTypeResource,
-        ProductFactory $productFactory
+        ProductFactory $productFactory,
+        AttributeInformationInterfaceFactory $attributeInformationFactory,
+        AttributeOptionInformationInterfaceFactory $attributeOptionInformationFactory
     ) {
         $this->aggregatedCartFactory = $aggregatedCartFactory;
         $this->cartRepository = $cartRepository;
@@ -110,6 +127,8 @@ class GetCart implements GetCartInterface
         $this->configurableProductTypeResource = $configurableProductTypeResource;
         $this->productFactory = $productFactory;
         $this->configurableParentRelationInterfaceFactory = $configurableParentRelationInterfaceFactory;
+        $this->attributeInformationFactory = $attributeInformationFactory;
+        $this->attributeOptionInformationFactory = $attributeOptionInformationFactory;
     }
 
     /**
@@ -164,13 +183,49 @@ class GetCart implements GetCartInterface
             ->create();
         $aggregatedCart->setProducts($this->productRepository->getList($productsSearchCriteria));
 
-        // Fetch cart products
+        // Fetch attributes metadata
         if ($productAttributesSearchCriteria) {
-            $aggregatedCart->setProductAttributes(
-                $this->productAttributeRepository->getList($productAttributesSearchCriteria)
-            );
+            $aggregatedCart->setProductAttributes($this->getAttributesInformation($productAttributesSearchCriteria));
         }
 
         return $aggregatedCart;
+    }
+
+    /**
+     * Get attributes information
+     *
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $productAttributesSearchCriteria
+     * @return AttributeInformationInterface[] $attributes
+     */
+    private function getAttributesInformation(
+        \Magento\Framework\Api\SearchCriteriaInterface $productAttributesSearchCriteria
+    ) {
+        $productAttributes = $this->productAttributeRepository->getList($productAttributesSearchCriteria);
+        $attributes = null;
+        foreach ($productAttributes->getItems() as $productAttribute) {
+            $options = null;
+            if (is_array($productAttribute->getOptions())) {
+                foreach ($productAttribute->getOptions() as $option) {
+                    $options[] = $this->attributeOptionInformationFactory->create(
+                        [
+                            'data' => [
+                                'value' => $option->getValue(),
+                                'label' => $option->getLabel(),
+                            ]
+                        ]
+                    );
+                }
+            }
+            $attributes[] = $this->attributeInformationFactory->create(
+                [
+                    'data' => [
+                        'code' => $productAttribute->getAttributeCode(),
+                        'label' => $productAttribute->getFrontendLabel(),
+                        'options' => $options,
+                    ]
+                ]
+            );
+        }
+        return $attributes;
     }
 }

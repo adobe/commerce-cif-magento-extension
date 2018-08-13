@@ -81,7 +81,7 @@ class AggregatedCart extends AbstractExtensibleObject implements AggregatedCartI
 
 
     public function setProductAttributes(
-        \Magento\Framework\Api\SearchResultsInterface $productAttributes
+        $productAttributes
     ) {
         return $this->setData('product_attributes', $productAttributes);
     }

@@ -18,5 +18,7 @@
     <preference for="Magento\AggregatedServices\Api\Service\GetGuestCartInterface" type="Magento\AggregatedServices\Model\Service\GetGuestCart"/>
     <preference for="Magento\AggregatedServices\Api\Data\AggregatedCartInterface" type="Magento\AggregatedServices\Model\Data\AggregatedCart"/>
     <preference for="Magento\AggregatedServices\Api\Data\ConfigurableParentRelationInterface" type="Magento\AggregatedServices\Model\Data\ConfigurableParentRelation"/>
+    <preference for="Magento\AggregatedServices\Api\Data\AttributeInformationInterface" type="Magento\AggregatedServices\Model\Data\AttributeInformation"/>
+    <preference for="Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterface" type="Magento\AggregatedServices\Model\Data\AttributeOptionInformation"/>
     <preference for="Magento\AggregatedServices\Api\Service\GetCartInterface" type="Magento\AggregatedServices\Model\Service\GetCart"/>
 </config>
