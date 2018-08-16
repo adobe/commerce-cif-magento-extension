@@ -37,10 +37,9 @@
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
 - [ ] I have signed the [Adobe Open Source CLA](http://opensource.adobe.com/cla.html).
-- [ ] My code passes the code style as defined by ESLint.
+- [ ] My code follows the code style of this project.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
 - [ ] I have read the **CONTRIBUTING** document.
-- [ ] I have added tests to cover my changes and the overall coverage did not decrease.
-- [ ] All unit tests pass on CircleCi.
+- [ ] I have added tests to cover my changes.
 - [ ] I ran all tests locally and they pass.
