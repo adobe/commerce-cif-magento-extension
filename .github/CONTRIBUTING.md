@@ -12,11 +12,18 @@ This project adheres to the Adobe [code of conduct](CODE_OF_CONDUCT.md). By part
 
 All third-party contributions to this project must be accompanied by a signed contributor license agreement. This gives Adobe permission to redistribute your contributions as part of the project. [Sign our CLA](http://opensource.adobe.com/cla.html). You only need to submit an Adobe CLA one time, so if you have submitted one previously, you are good to go!
 
-## Code Reviews
+## How to contribute
 
-All submissions should come in the form of pull requests and need to be reviewed by project committers. Read [GitHub's pull request documentation](https://help.github.com/articles/about-pull-requests/) for more information on sending pull requests.
+New code contributions should be made primarily using GitHub pull requests. This involves creating a fork of the project in your personal space, adding your new code in a branch and triggering a pull request.
+
+See how to perform pull requests at https://help.github.com/articles/using-pull-requests.
 
 Please follow the [pull request template](PULL_REQUEST_TEMPLATE.md) when submitting a pull request!
+
+## New Feature request
+Please follow the [feature template](ISSUE_TEMPLATE/FEATURE_REQUEST.md) to open new feature requests. 
+
+
 ## Issues
 
-Please follow the [issue template](ISSUE_TEMPLATE.md) to open new [issues](https://github.com/adobe/commerce-cif-magento-extension/issues) and join the conversations to provide feedback.
+Please follow the [issue template](ISSUE_TEMPLATE/BUG_REPORT.md) to open new [issues](https://github.com/adobe/commerce-cif-magento-extension/issues) and join the conversations to provide feedback. 
