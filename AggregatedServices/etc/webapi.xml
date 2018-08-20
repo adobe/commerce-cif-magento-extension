@@ -34,7 +34,7 @@
         </data>
     </route>
 
-    <route url="/V1/customer-carts/mine/merge-with-guest-cart/:guestCartId" method="PUT">
+    <route url="/V1/carts/mine/merge-with-guest-cart/:guestCartId" method="PUT">
         <service class="Magento\AggregatedServices\Api\Service\MergeCartsInterface" method="mergeGuestCartIntoActiveCustomerCart"/>
         <resources>
             <resource ref="self" />
