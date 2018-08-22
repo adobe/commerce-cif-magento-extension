@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace Magento\AggregatedServices\Api;
+namespace Magento\AggregatedServices\Api\Service;
 
 class GetGuestCartTest extends \Magento\TestFramework\TestCase\WebapiAbstract
 {

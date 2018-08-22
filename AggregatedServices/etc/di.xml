@@ -21,4 +21,5 @@
     <preference for="Magento\AggregatedServices\Api\Data\AttributeInformationInterface" type="Magento\AggregatedServices\Model\Data\AttributeInformation"/>
     <preference for="Magento\AggregatedServices\Api\Data\AttributeOptionInformationInterface" type="Magento\AggregatedServices\Model\Data\AttributeOptionInformation"/>
     <preference for="Magento\AggregatedServices\Api\Service\GetCartInterface" type="Magento\AggregatedServices\Model\Service\GetCart"/>
+    <preference for="Magento\AggregatedServices\Api\Service\MergeCartsInterface" type="Magento\AggregatedServices\Model\Service\MergeCarts"/>
 </config>
