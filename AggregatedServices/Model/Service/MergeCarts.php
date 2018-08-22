@@ -95,7 +95,7 @@ class MergeCarts implements MergeCartsInterface
             $guestQuote->setIsActive(false);
             $this->quoteResourceModel->save($guestQuote);
         } catch (\Exception $e) {
-            throw new LocalizedException(__("Unable to merge specified guest quote into active customer quote."));
+            throw new LocalizedException(__('Unable to merge specified guest quote into active customer quote.'));
         }
         return $customerQuote->getId();
     }
