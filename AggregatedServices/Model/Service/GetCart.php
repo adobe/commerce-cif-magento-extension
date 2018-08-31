@@ -143,10 +143,11 @@ class GetCart implements GetCartInterface
 
         $cartDetails = $this->cartRepository->get($cartId);
         $aggregatedCart->setCartDetails($cartDetails);
+        $cartItems = $cartDetails->getItems() ?: [];
 
         // Get parent product SKU for configurable items
         $configurableParentRelations = [];
-        foreach ($cartDetails->getItems() as $cartItem) {
+        foreach ($cartItems as $cartItem) {
             if ($cartItem->getProductType() == 'configurable') {
                 /** @var ConfigurableParentRelationInterface $configurableParentRelation */
                 $configurableParentRelation = $this->configurableParentRelationInterfaceFactory->create();
@@ -175,7 +176,7 @@ class GetCart implements GetCartInterface
 
         // Fetch cart products
         $productSkus = [];
-        foreach ($cartDetails->getItems() as $cartItem) {
+        foreach ($cartItems as $cartItem) {
             $productSkus[] = $cartItem->getSku();
         }
         $productsSearchCriteria = $this->searchCriteriaBuilder
